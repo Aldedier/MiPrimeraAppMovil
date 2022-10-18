@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MiPrimeraApp.ViewPages.RegistroUsuario">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Registro usuario"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   />
+                <BoxView HeightRequest="2" BackgroundColor="CadetBlue" />
+
+                <Grid Margin="5,15,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Text="Nombre" VerticalOptions="Center"/>
+                    <Entry x:Name="txtNombre" Grid.Column="1" Grid.Row="0" Keyboard="Text" />
+
+                    <Label Grid.Column="0" Grid.Row="1" Text="Apellidos" VerticalOptions="Center"/>
+                    <Entry x:Name="txtApellidos" Grid.Column="1" Grid.Row="1" Keyboard="Text" />
+
+                    <Label Grid.Column="0" Grid.Row="2" Text="Identificación" VerticalOptions="Center"/>
+                    <Entry x:Name="txtIdentificacion" Grid.Column="1" Grid.Row="2" Keyboard="Numeric" MaxLength="10" />
+
+                    <Label Grid.Column="0" Grid.Row="3" Text="Celular" VerticalOptions="Center"/>
+                    <Entry x:Name="txtCelular" Grid.Column="1" Grid.Row="3" Keyboard="Numeric" MaxLength="10" />
+
+                    <Label Grid.Column="0" Grid.Row="4" Text="Correo" VerticalOptions="Center"/>
+                    <Entry x:Name="txtCorreo" Grid.Column="1" Grid.Row="4" Keyboard="Email" />
+
+                    <Label Grid.Column="0" Grid.Row="5" Text="Fecha" VerticalOptions="Center"/>
+                    <DatePicker x:Name="txtFecha" Grid.Column="1" Grid.Row="5" Format="dd/MM/yyyy" MinimumDate="01/01/2022"/>
+
+                    <Label Grid.Column="0" Grid.Row="6" Text="Observacion" VerticalOptions="Start"/>
+                    <Editor x:Name="txtObservacion" Grid.Column="1" Grid.Row="6" Keyboard="Text" MaxLength="75" />
+
+                    <Label Grid.Column="0" Grid.Row="7" Text="Sexo" VerticalOptions="Center"/>
+                    <StackLayout Grid.Column="1" Grid.Row="7">
+                        <RadioButton x:Name="txtMasculino" Content="Masculino"/>
+                        <RadioButton x:Name="txtFemenino" Content="Femenino" />
+                    </StackLayout>
+
+                    <Label Grid.Column="0" Grid.Row="8" Text="Usuario" VerticalOptions="Center"/>
+                    <Entry x:Name="txtUsuario" Grid.Column="1" Grid.Row="8" Keyboard="Text" />
+
+                    <Label Grid.Column="0" Grid.Row="9" Text="Contraseña" VerticalOptions="Center"/>
+                    <Entry x:Name="txtContraseña" Grid.Column="1" Grid.Row="9" IsPassword="True" />
+                </Grid>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Button x:Name="btnRegistrarUsuario" Clicked="btnRegistrarUsuario_Clicked" Text="Registrar" Background="Green" TextColor="White" CornerRadius="15" />
+                    <Button x:Name="btnRegresarLogin" Clicked="btnRegresarLogin_Clicked" Text="Regresar" Background="Red" TextColor="White" CornerRadius="15" />
+                </StackLayout>
+                
+                
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

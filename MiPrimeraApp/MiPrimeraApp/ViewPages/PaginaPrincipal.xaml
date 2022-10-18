@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:Paginas="clr-namespace:MiPrimeraApp.ViewPages"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MiPrimeraApp.ViewPages.PaginaPrincipal">
+    <MasterDetailPage.Master>
+        <Paginas:Menu>
+            
+        </Paginas:Menu>
+    </MasterDetailPage.Master>
+
+    <MasterDetailPage.Detail>
+        <NavigationPage x:Name="Navegacion">
+            <x:Arguments>
+
+                <Paginas:Detail>
+                    
+                </Paginas:Detail>
+                
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
