@@ -8,6 +8,7 @@ namespace MiPrimeraApp
     public partial class App : Application
     {
         public static NavigationPage Navegacion { get; internal set; }
+        public static PaginaPrincipal MenuApp { get; internal set; }
 
         public App()
         {

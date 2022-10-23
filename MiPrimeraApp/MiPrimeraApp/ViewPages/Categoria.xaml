@@ -9,31 +9,42 @@
 
     <ContentPage.Content>
 
-        <ListView ItemsSource="{Binding LstCategorias}"
+        <StackLayout>
+            <SearchBar Placeholder="Buscar categorias" x:Name="buscarCategoria" TextChanged="buscarCategoria_TextChanged"/>
+
+
+            <ScrollView BindingContext="{Binding ClsEntity}">
+                <ListView ItemsSource="{Binding LstCategorias}"
                   x:Name="lstCategoria" ItemSelected="lstCategoria_ItemSelected"
                   Margin="5" HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
 
-                            <Label HorizontalOptions="Center" Text="{Binding Nombre}" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" FontSize="20" />
-                            <Label Text="{Binding Descripcion}" Grid.Column="0" Grid.Row="1" />
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Eliminar" x:Name="menuEliminar" Clicked="menuEliminar_Clicked"/>
+                                </ViewCell.ContextActions>
 
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        
-        
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label HorizontalOptions="Center" Text="{Binding Nombre}" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" FontSize="20" />
+                                    <Label Text="{Binding Descripcion}" Grid.Column="0" Grid.Row="1" />
+
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+
+        </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

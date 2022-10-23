@@ -89,10 +89,8 @@
                 <Button BackgroundColor="Blue" TextColor="White" Text="Registrarse" x:Name="Registrarse" Clicked="Registrarse_Clicked" />
                 <Button BackgroundColor="Blue" TextColor="White" Text="Ingresar" x:Name="Ingresar" Clicked="Ingresar_Clicked"/>
             </StackLayout>
-
-
         </Grid>
-
+        <Button BackgroundColor="Blue" TextColor="White" Text="Asignar" x:Name="btnAsignar" Clicked="btnAsignar_Clicked" />
     </StackLayout>
 
 </ContentPage>

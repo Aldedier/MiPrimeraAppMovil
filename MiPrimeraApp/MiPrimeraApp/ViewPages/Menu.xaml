@@ -22,7 +22,8 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-                                <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Start">
+                                <StackLayout Grid.Column="0" Grid.Row="0" 
+                                             Orientation="Horizontal" HorizontalOptions="Start">
                                     <Image Source="{Binding Icono}" />
                                     <Label Text="{Binding Nombre}" VerticalOptions="Center"/>
                                 </StackLayout>

@@ -35,10 +35,13 @@ namespace MiPrimeraApp.ViewPages
                     App.Navegacion.PushAsync(new Categoria()); break;
                 case "Producto":
                     App.Navegacion.PushAsync(new Producto()); break;
-                case "Salir":
+                case "Cerrar Sesión":
                     App.Current.MainPage = new MainPage(); break;
             }
-            
+
+            // Oculta el menu automaticamente
+            App.MenuApp.IsPresented = false;
+
             //DisplayAlert("Menu", clsMenu.Nombre, "Cancelar");
         }
     }

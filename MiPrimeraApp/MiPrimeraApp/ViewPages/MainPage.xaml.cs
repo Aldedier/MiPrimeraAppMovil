@@ -49,5 +49,11 @@ namespace MiPrimeraApp.ViewPages
         {
             await Navigation.PushAsync(new RegistroUsuario());
         }
+
+        private void btnAsignar_Clicked(object sender, EventArgs e)
+        {
+            ClsUsuario.Usuario = "aldedier";
+            ClsUsuario.Contrasena = "1234";
+        }
     }
 }

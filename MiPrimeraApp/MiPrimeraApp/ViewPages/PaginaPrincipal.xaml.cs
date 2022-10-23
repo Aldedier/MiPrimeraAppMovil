@@ -16,6 +16,7 @@ namespace MiPrimeraApp.ViewPages
         {
             InitializeComponent();
             App.Navegacion = Navegacion;
+            App.MenuApp = this;
         }
     }
 }
