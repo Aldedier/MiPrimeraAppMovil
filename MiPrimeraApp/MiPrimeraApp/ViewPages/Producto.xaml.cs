@@ -13,18 +13,28 @@ namespace MiPrimeraApp.ViewPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Producto : ContentPage
     {
+        public static Producto Instance { get; set; }
+
+        public static Producto GetInstance()
+        {
+            if (Instance == null)
+                return new Producto();
+            return Instance;
+        }
+
         public List<ClsProducto> LstProductos { get; set; }
         public ClsEntity ClsEntity { get; set; }
         public string NombreProducto { get; set; }
 
         public Producto()
         {
+            Instance = this;
             InitializeComponent();
             ClsEntity = new ClsEntity();
             ClsEntity.LstProductos = new List<ClsProducto>();
-            ClsEntity.LstProductos.Add(new ClsProducto { Nombre = "Computador", NombreCategoria = "Aldedier", Precio = 4054, Stock = 41 });
-            ClsEntity.LstProductos.Add(new ClsProducto { Nombre = "Portatil", NombreCategoria = "Deicy", Precio = 2054, Stock = 43 });
-            ClsEntity.LstProductos.Add(new ClsProducto { Nombre = "Moto", NombreCategoria = "Aldedier", Precio = 12400, Stock = 89 });
+            ClsEntity.LstProductos.Add(new ClsProducto { IdProducto = 1, Nombre = "Computador", NombreCategoria = "Aldedier", Precio = 4054, Stock = 41 });
+            ClsEntity.LstProductos.Add(new ClsProducto { IdProducto = 2, Nombre = "Portatil", NombreCategoria = "Deicy", Precio = 2054, Stock = 43 });
+            ClsEntity.LstProductos.Add(new ClsProducto { IdProducto = 3, Nombre = "Moto", NombreCategoria = "Aldedier", Precio = 12400, Stock = 89 });
             LstProductos = ClsEntity.LstProductos;
             BindingContext = this;
         }
@@ -36,6 +46,17 @@ namespace MiPrimeraApp.ViewPages
             ClsEntity.LstProductos = LstProductos.Where(x => x.Nombre.Contains(texto)).ToList();
 
             // DisplayAlert("Aviso", texto, "Cancelar");
+        }
+
+        private void toolbarAgregarProducto_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ProductoDetalle(new ClsProducto(), "Agregar Producto"));
+        }
+
+        private void ListaProductos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ClsProducto clsProducto = (ClsProducto)e.SelectedItem;
+            Navigation.PushAsync(new ProductoDetalle(clsProducto, "Editar Producto"));
         }
     }
 }

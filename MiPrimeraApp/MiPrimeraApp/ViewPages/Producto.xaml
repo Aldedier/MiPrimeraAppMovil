@@ -2,12 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MiPrimeraApp.ViewPages.Producto">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="toolbarAgregarProducto" IconImageSource="ic_Agregar.png" Clicked="toolbarAgregarProducto_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+
     <ContentPage.Content>
         <StackLayout>
             <SearchBar Text="{Binding NombreProducto}" x:Name="buscarProducto" 
                            SearchButtonPressed="buscarProducto_SearchButtonPressed"/>
             <ScrollView BindingContext="{Binding ClsEntity}">
-                <ListView ItemsSource="{Binding LstProductos}">
+                <ListView x:Name="ListaProductos" ItemsSource="{Binding LstProductos}" ItemSelected="ListaProductos_ItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

@@ -1,7 +1,11 @@
-﻿using MiPrimeraApp.Clases;
+﻿using Android.Webkit;
+using MiPrimeraApp.Clases;
+using MiPrimeraApp.Generic;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +25,7 @@ namespace MiPrimeraApp.ViewPages
 
         public static Categoria GetInstance()
         {
-            if(instance == null)
+            if (instance == null)
             {
                 return new Categoria();
             }
@@ -36,10 +40,11 @@ namespace MiPrimeraApp.ViewPages
             instance = this;
             InitializeComponent();
             ClsEntity = new ClsEntity();
-            ClsEntity.LstCategorias = new List<ClsCategoria>();
-            ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 1, Nombre = "Aldedier", Descripcion = "Desarrollador" });
-            ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 2, Nombre = "Deicy", Descripcion = "Comunicadora social" });
-            ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 3, Nombre = "Hedy", Descripcion = "Hogar" });
+            ListarCategorias();
+            //ClsEntity.LstCategorias = new List<ClsCategoria>();
+            //ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 1, Nombre = "Aldedier", Descripcion = "Desarrollador" });
+            //ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 2, Nombre = "Deicy", Descripcion = "Comunicadora social" });
+            //ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 3, Nombre = "Hedy", Descripcion = "Hogar" });
             LstCategorias = ClsEntity.LstCategorias;
             BindingContext = this;
         }
@@ -55,12 +60,23 @@ namespace MiPrimeraApp.ViewPages
             Navigation.PushAsync(new CategoriaDetalle(new ClsCategoria(), "Crear Categoría"));
         }
 
-        private void menuEliminar_Clicked(object sender, EventArgs e)
+        private async void menuEliminar_Clicked(object sender, EventArgs e)
         {
             MenuItem oMenuItem = sender as MenuItem;
             ClsCategoria clsCategoria = (ClsCategoria)oMenuItem.BindingContext;
-            ClsEntity.LstCategorias.Remove(clsCategoria);
-            ClsEntity.LstCategorias = ClsEntity.LstCategorias.ToList();
+
+            var respuesta = await GenericList.Delete("http://aldedier-001-site1.dtempurl.com/api/categoria/delete", clsCategoria.Id);
+
+            if (respuesta == 0)
+                await DisplayAlert("Error", "No se pudo eliminar", "Cancelar");
+            else
+            {
+                ListarCategorias();
+                await DisplayAlert("Exito", "Se eliminó correctamente", "Aceptar");
+            }
+
+            //ClsEntity.LstCategorias.Remove(clsCategoria);
+            //ClsEntity.LstCategorias = ClsEntity.LstCategorias.ToList();
             //DisplayAlert("Aviso", clsCategoria.Nombre, "Aceptar");
         }
 
@@ -71,6 +87,9 @@ namespace MiPrimeraApp.ViewPages
             //DisplayAlert("Aviso", valor, "Aceptar");
         }
 
-       
+        public async void ListarCategorias()
+        {
+            ClsEntity.LstCategorias = await GenericList.GetAll<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/get");
+        }
     }
 }

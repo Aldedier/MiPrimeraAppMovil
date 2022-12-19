@@ -1,4 +1,5 @@
 ﻿using MiPrimeraApp.Clases;
+using MiPrimeraApp.Generic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,24 +25,33 @@ namespace MiPrimeraApp.ViewPages
             Titulo = _titulo;
         }
 
-        private void btnGuardar_Clicked(object sender, EventArgs e)
+        private async void btnGuardar_Clicked(object sender, EventArgs e)
         {
             Categoria obj = Categoria.GetInstance();
             List<ClsCategoria> lista = obj.ClsEntity.LstCategorias.ToList();
 
-            if (Titulo == "Crear Categoría")
+            bool respuesta = await GenericList.Post<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/post", ClsCategoria);
+
+            if (respuesta)
             {
-                lista.Add(ClsCategoria);
+                await DisplayAlert("Exito", "Se creó correctamente", "Aceptar");
+                obj.ListarCategorias();
             }
             else
-            {
-                int indice = lista.FindIndex(x => x.Id == ClsCategoria.Id);
-                lista[indice].Descripcion = ClsCategoria.Descripcion;
-                lista[indice].Nombre = ClsCategoria.Nombre;
-            }
-            
-            obj.ClsEntity.LstCategorias = lista;
-            Navigation.PopAsync();
+                await DisplayAlert("Error", "No se pudo crear", "Cancelar");
+
+            //if (Titulo == "Crear Categoría")
+            //{
+            //    lista.Add(ClsCategoria);
+            //}
+            //else
+            //{
+            //    int indice = lista.FindIndex(x => x.Id == ClsCategoria.Id);
+            //    lista[indice] = ClsCategoria;
+            //}
+
+            //obj.ClsEntity.LstCategorias = lista;
+            await Navigation.PopAsync();
         }
 
         private void btnRegresar_Clicked(object sender, EventArgs e)

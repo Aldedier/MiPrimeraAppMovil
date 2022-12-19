@@ -4,15 +4,15 @@
              Title="{Binding Titulo}"
              x:Class="MiPrimeraApp.ViewPages.CategoriaDetalle">
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding ClsCategoria}">
-            <Label Text="Id" />
-            <Entry Text="{Binding Id}"/>
+        <StackLayout BindingContext="{Binding ClsCategoria}" Margin="5">
+            <!--<Label Text="Id" />
+            <Entry Text="{Binding Id}"/>-->
 
             <Label Text="Nombre" />
             <Entry Text="{Binding Nombre}"/>
 
             <Label Text="Descripción" />
-            <Entry Text="{Binding Descripcion}"/>
+            <Editor Text="{Binding Descripcion}" HeightRequest="100"/>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Button Text="Guardar" BackgroundColor="Blue" x:Name="btnGuardar" Clicked="btnGuardar_Clicked"/>
