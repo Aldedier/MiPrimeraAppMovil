@@ -1,6 +1,7 @@
 ﻿using Android.Webkit;
 using MiPrimeraApp.Clases;
 using MiPrimeraApp.Generic;
+using MiPrimeraApp.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace MiPrimeraApp.ViewPages
     {
         public static Categoria instance { get; set; }
 
-        public ClsEntity ClsEntity { get; set; }
+        public CategoriaModel categoriaModel { get; set; }
 
         public List<ClsCategoria> LstCategorias { get; set; }
 
@@ -39,14 +40,20 @@ namespace MiPrimeraApp.ViewPages
         {
             instance = this;
             InitializeComponent();
-            ClsEntity = new ClsEntity();
-            ListarCategorias();
+            categoriaModel = new CategoriaModel();
+  
             //ClsEntity.LstCategorias = new List<ClsCategoria>();
             //ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 1, Nombre = "Aldedier", Descripcion = "Desarrollador" });
             //ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 2, Nombre = "Deicy", Descripcion = "Comunicadora social" });
             //ClsEntity.LstCategorias.Add(new ClsCategoria { Id = 3, Nombre = "Hedy", Descripcion = "Hogar" });
-            LstCategorias = ClsEntity.LstCategorias;
+            //LstCategorias = ClsEntity.LstCategorias;
+
             BindingContext = this;
+            ListarCategorias();
+            lstCategoria.RefreshCommand = new Command(() =>
+            {
+                ListarCategorias();
+            });
         }
 
         private void lstCategoria_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -83,13 +90,16 @@ namespace MiPrimeraApp.ViewPages
         private void buscarCategoria_TextChanged(object sender, TextChangedEventArgs e)
         {
             string valor = e.NewTextValue;
-            ClsEntity.LstCategorias = LstCategorias.Where(X => X.Nombre.Contains(valor)).ToList();
+            categoriaModel.LstCategorias = LstCategorias.Where(X => X.Nombre.ToLower().Contains(valor.ToLower())).ToList();
             //DisplayAlert("Aviso", valor, "Aceptar");
         }
 
         public async void ListarCategorias()
         {
-            ClsEntity.LstCategorias = await GenericList.GetAll<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/get");
+            categoriaModel.IsLoading = true;
+            categoriaModel.LstCategorias = await GenericList.GetAll<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/get");
+            categoriaModel.IsLoading = false;
+            LstCategorias = categoriaModel.LstCategorias;
         }
     }
 }

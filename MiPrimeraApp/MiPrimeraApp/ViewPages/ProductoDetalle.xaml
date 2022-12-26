@@ -7,19 +7,25 @@
         <StackLayout>
 
             <Label Text="Nombre"/>
-            <Entry Text="{Binding oClsProducto.Nombre}" />
+            <Entry Text="{Binding productoModel.ClsProducto.Nombre}" />
 
             <Label Text="Precio"/>
-            <Entry Keyboard="Numeric" Text="{Binding oClsProducto.Precio}" />
+            <Entry Keyboard="Numeric" Text="{Binding productoModel.ClsProducto.Precio}" />
 
             <Label Text="Categoria"/>
             <Picker Title="Seleccione una categoria" 
-                    ItemsSource="{Binding ListaCategoria}"
-                    SelectedItem="{Binding oClsProducto.NombreCategoria}"
+                    ItemsSource="{Binding productoModel.LstCategorias}"
+                    SelectedItem="{Binding productoModel.ClsProducto.NombreCategoria}"
+                    />
+
+            <Label Text="Marca"/>
+            <Picker Title="Seleccione una marca" 
+                    ItemsSource="{Binding productoModel.LstMarcas}"
+                    SelectedItem="{Binding productoModel.ClsProducto.NombreMarca}"
                     />
 
             <Label Text="Stock"/>
-            <Entry Keyboard="Numeric" Text="{Binding oClsProducto.Stock}" />
+            <Entry Keyboard="Numeric" Text="{Binding productoModel.ClsProducto.Stock}" />
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Button Text="Aceptar" x:Name="btnGuardarProducto" Clicked="btnGuardarProducto_Clicked" BackgroundColor="Green"/>

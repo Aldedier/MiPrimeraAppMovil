@@ -1,4 +1,6 @@
 ﻿using MiPrimeraApp.Clases;
+using MiPrimeraApp.Generic;
+using MiPrimeraApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,27 +25,33 @@ namespace MiPrimeraApp.ViewPages
         }
 
         public List<ClsProducto> LstProductos { get; set; }
-        public ClsEntity ClsEntity { get; set; }
+        public ProductoModel productoModel { get; set; }
         public string NombreProducto { get; set; }
 
         public Producto()
         {
             Instance = this;
             InitializeComponent();
-            ClsEntity = new ClsEntity();
-            ClsEntity.LstProductos = new List<ClsProducto>();
-            ClsEntity.LstProductos.Add(new ClsProducto { IdProducto = 1, Nombre = "Computador", NombreCategoria = "Aldedier", Precio = 4054, Stock = 41 });
-            ClsEntity.LstProductos.Add(new ClsProducto { IdProducto = 2, Nombre = "Portatil", NombreCategoria = "Deicy", Precio = 2054, Stock = 43 });
-            ClsEntity.LstProductos.Add(new ClsProducto { IdProducto = 3, Nombre = "Moto", NombreCategoria = "Aldedier", Precio = 12400, Stock = 89 });
-            LstProductos = ClsEntity.LstProductos;
+            productoModel = new ProductoModel();
+            //productoModel.LstProductos = new List<ClsProducto>();
+            //productoModel.LstProductos.Add(new ClsProducto { IdProducto = 1, Nombre = "Computador", NombreCategoria = "Aldedier", Precio = 4054, Stock = 41 });
+            //productoModel.LstProductos.Add(new ClsProducto { IdProducto = 2, Nombre = "Portatil", NombreCategoria = "Deicy", Precio = 2054, Stock = 43 });
+            //productoModel.LstProductos.Add(new ClsProducto { IdProducto = 3, Nombre = "Moto", NombreCategoria = "Aldedier", Precio = 12400, Stock = 89 });
+            ListarProductos();
             BindingContext = this;
+        }
+
+        public async void ListarProductos()
+        {
+            productoModel.LstProductos = await GenericList.GetAll<ClsProducto>("http://aldedier-001-site1.dtempurl.com/api/producto/get");
+            LstProductos = productoModel.LstProductos;
         }
 
         private void buscarProducto_SearchButtonPressed(object sender, EventArgs e)
         {
             SearchBar obj = sender as SearchBar;
             string texto = obj.Text;
-            ClsEntity.LstProductos = LstProductos.Where(x => x.Nombre.Contains(texto)).ToList();
+            productoModel.LstProductos = LstProductos.Where(x => x.Nombre.Contains(texto)).ToList();
 
             // DisplayAlert("Aviso", texto, "Cancelar");
         }

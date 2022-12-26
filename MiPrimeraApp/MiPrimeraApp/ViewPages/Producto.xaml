@@ -12,7 +12,7 @@
         <StackLayout>
             <SearchBar Text="{Binding NombreProducto}" x:Name="buscarProducto" 
                            SearchButtonPressed="buscarProducto_SearchButtonPressed"/>
-            <ScrollView BindingContext="{Binding ClsEntity}">
+            <ScrollView BindingContext="{Binding productoModel}">
                 <ListView x:Name="ListaProductos" ItemsSource="{Binding LstProductos}" ItemSelected="ListaProductos_ItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>

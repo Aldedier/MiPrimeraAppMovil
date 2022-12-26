@@ -44,5 +44,13 @@ namespace MiPrimeraApp.Generic
                 return JsonConvert.DeserializeObject<List<T>>(resultado);
             }
         }
+
+        public static async Task<T> Get<T>(string _url)
+        {
+            HttpClient cliente = new HttpClient();
+            var respuesta = await cliente.GetAsync(_url);
+            var resultado = await respuesta.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(resultado);
+        }
     }
 }

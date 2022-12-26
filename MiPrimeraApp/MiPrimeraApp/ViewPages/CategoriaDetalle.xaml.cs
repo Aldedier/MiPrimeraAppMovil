@@ -28,7 +28,7 @@ namespace MiPrimeraApp.ViewPages
         private async void btnGuardar_Clicked(object sender, EventArgs e)
         {
             Categoria obj = Categoria.GetInstance();
-            List<ClsCategoria> lista = obj.ClsEntity.LstCategorias.ToList();
+            List<ClsCategoria> lista = obj.categoriaModel.LstCategorias.ToList();
 
             bool respuesta = await GenericList.Post<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/post", ClsCategoria);
 

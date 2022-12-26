@@ -8,8 +8,9 @@ namespace MiPrimeraApp.Clases
     {
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
-        public double Precio { get; set; }
+        public decimal Precio { get; set; }
         public int Stock { get; set; }
         public string NombreCategoria { get; set; }
+        public string NombreMarca { get; set; }
     }
 }

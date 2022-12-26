@@ -13,8 +13,10 @@
             <SearchBar Placeholder="Buscar categorias" x:Name="buscarCategoria" TextChanged="buscarCategoria_TextChanged"/>
 
 
-            <ScrollView BindingContext="{Binding ClsEntity}">
-                <ListView ItemsSource="{Binding LstCategorias}"
+            <ScrollView>
+                <ListView ItemsSource="{Binding categoriaModel.LstCategorias}" 
+                          IsPullToRefreshEnabled="True"
+                          IsRefreshing="{Binding categoriaModel.IsLoading}"
                   x:Name="lstCategoria" ItemSelected="lstCategoria_ItemSelected"
                   Margin="5" HasUnevenRows="True">
                     <ListView.ItemTemplate>
