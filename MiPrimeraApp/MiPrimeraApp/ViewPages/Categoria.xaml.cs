@@ -72,7 +72,7 @@ namespace MiPrimeraApp.ViewPages
             MenuItem oMenuItem = sender as MenuItem;
             ClsCategoria clsCategoria = (ClsCategoria)oMenuItem.BindingContext;
 
-            var respuesta = await GenericList.Delete("http://aldedier-001-site1.dtempurl.com/api/categoria/delete", clsCategoria.Id);
+            var respuesta = await ServiciosGenericos.Delete("http://aldedier-001-site1.dtempurl.com/api/categoria/delete", clsCategoria.Id);
 
             if (respuesta == 0)
                 await DisplayAlert("Error", "No se pudo eliminar", "Cancelar");
@@ -97,7 +97,7 @@ namespace MiPrimeraApp.ViewPages
         public async void ListarCategorias()
         {
             categoriaModel.IsLoading = true;
-            categoriaModel.LstCategorias = await GenericList.GetAll<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/get");
+            categoriaModel.LstCategorias = await ServiciosGenericos.GetAll<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/get");
             categoriaModel.IsLoading = false;
             LstCategorias = categoriaModel.LstCategorias;
         }

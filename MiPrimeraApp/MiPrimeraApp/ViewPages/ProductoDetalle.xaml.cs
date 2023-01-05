@@ -43,7 +43,9 @@ namespace MiPrimeraApp.ViewPages
 
         public async void ListarCombos()
         {
-            ClsCategoriaMarca clsCategoriaMarca = await GenericList.Get<ClsCategoriaMarca>("http://aldedier-001-site1.dtempurl.com/api/categoriamarca/get");
+            productoModel.IsLoadingForm = true;
+            ClsCategoriaMarca clsCategoriaMarca = await ServiciosGenericos.Get<ClsCategoriaMarca>("http://aldedier-001-site1.dtempurl.com/api/categoriamarca/get");
+            productoModel.IsLoadingForm = false;
             ListaCategorias = clsCategoriaMarca.ListaCategoria;
             ListaMarcas = clsCategoriaMarca.ListaMarca;
             productoModel.LstCategorias = ListaCategorias.Select(x => x.Nombre).ToList();
@@ -51,22 +53,44 @@ namespace MiPrimeraApp.ViewPages
             productoModel.ClsProducto = oClsProducto;
         }
 
-        private void btnGuardarProducto_Clicked(object sender, EventArgs e)
+        private async void btnGuardarProducto_Clicked(object sender, EventArgs e)
         {
             Producto obj = Producto.GetInstance();
             List<ClsProducto> lista = obj.productoModel.LstProductos.ToList();
 
-            if (Titulo == "Agregar Producto")
+            productoModel.ClsProducto.IdCategoria = ListaCategorias
+                .Where(x => x.Nombre == productoModel.ClsProducto.NombreCategoria).First().Id;
+
+            productoModel.ClsProducto.IdMarca = ListaMarcas
+                .Where(x => x.Nombre == productoModel.ClsProducto.NombreMarca).First().Iidmarca;
+
+            productoModel.IsLoadingForm = true;
+
+            bool respuesta = await ServiciosGenericos.Post("http://aldedier-001-site1.dtempurl.com/api/producto/post", productoModel.ClsProducto);
+
+            productoModel.IsLoadingForm = false;
+
+            if (respuesta)
             {
-                lista.Add(productoModel.ClsProducto);
+                await DisplayAlert("Exito", "Se creó correctamente", "Aceptar");
+                obj.ListarProductos();
             }
             else
-            {
-                int indice = lista.FindIndex(x => x.IdProducto == productoModel.ClsProducto.IdProducto);
-                lista[indice] = productoModel.ClsProducto;
-            }
+                await DisplayAlert("Error", "No se pudo crear", "Cancelar");
 
-            obj.productoModel.LstProductos = lista;
+            //if (Titulo == "Agregar Producto")
+            //{
+            //    lista.Add(productoModel.ClsProducto);
+            //}
+            //else
+            //{
+            //    int indice = lista.FindIndex(x => x.IdProducto == productoModel.ClsProducto.IdProducto);
+            //    lista[indice] = productoModel.ClsProducto;
+            //}
+
+            //obj.productoModel.LstProductos = lista;
+
+
             Navigation.PopAsync();
         }
 

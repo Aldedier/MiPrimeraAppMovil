@@ -4,34 +4,47 @@
              Title="{Binding Titulo}"
              x:Class="MiPrimeraApp.ViewPages.ProductoDetalle">
     <ContentPage.Content>
-        <StackLayout>
 
-            <Label Text="Nombre"/>
-            <Entry Text="{Binding productoModel.ClsProducto.Nombre}" />
+        <AbsoluteLayout>
 
-            <Label Text="Precio"/>
-            <Entry Keyboard="Numeric" Text="{Binding productoModel.ClsProducto.Precio}" />
+            <StackLayout Margin="5" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
 
-            <Label Text="Categoria"/>
-            <Picker Title="Seleccione una categoria" 
+                <Label Text="Nombre"/>
+                <Entry Text="{Binding productoModel.ClsProducto.Nombre}" />
+
+                <Label Text="Precio"/>
+                <Entry Keyboard="Numeric" Text="{Binding productoModel.ClsProducto.Precio}" />
+
+                <Label Text="Categoria"/>
+                <Picker Title="Seleccione una categoria" 
                     ItemsSource="{Binding productoModel.LstCategorias}"
                     SelectedItem="{Binding productoModel.ClsProducto.NombreCategoria}"
                     />
 
-            <Label Text="Marca"/>
-            <Picker Title="Seleccione una marca" 
+                <Label Text="Marca"/>
+                <Picker Title="Seleccione una marca" 
                     ItemsSource="{Binding productoModel.LstMarcas}"
                     SelectedItem="{Binding productoModel.ClsProducto.NombreMarca}"
                     />
 
-            <Label Text="Stock"/>
-            <Entry Keyboard="Numeric" Text="{Binding productoModel.ClsProducto.Stock}" />
+                <Label Text="Stock"/>
+                <Entry Keyboard="Numeric" Text="{Binding productoModel.ClsProducto.Stock}" />
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                <Button Text="Aceptar" x:Name="btnGuardarProducto" Clicked="btnGuardarProducto_Clicked" BackgroundColor="Green"/>
-                <Button Text="Regresar" x:Name="btnRegresarProducto" Clicked="btnRegresarProducto_Clicked" BackgroundColor="Red"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Button Text="Aceptar" x:Name="btnGuardarProducto" Clicked="btnGuardarProducto_Clicked" BackgroundColor="Green"/>
+                    <Button Text="Regresar" x:Name="btnRegresarProducto" Clicked="btnRegresarProducto_Clicked" BackgroundColor="Red"/>
+                </StackLayout>
+
             </StackLayout>
+
+            <ActivityIndicator
+                AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                AbsoluteLayout.LayoutFlags="All"
+                IsRunning="{Binding productoModel.IsLoadingForm}"
+                />
             
-        </StackLayout>
+        </AbsoluteLayout>
+        
+
     </ContentPage.Content>
 </ContentPage>

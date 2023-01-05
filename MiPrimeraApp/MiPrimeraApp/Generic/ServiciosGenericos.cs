@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MiPrimeraApp.Generic
 {
-    public class GenericList
+    public class ServiciosGenericos
     {
         public static async Task<bool> Post<T>(string _url, T _object)
         {

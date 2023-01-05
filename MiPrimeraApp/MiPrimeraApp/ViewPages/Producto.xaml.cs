@@ -43,7 +43,7 @@ namespace MiPrimeraApp.ViewPages
 
         public async void ListarProductos()
         {
-            productoModel.LstProductos = await GenericList.GetAll<ClsProducto>("http://aldedier-001-site1.dtempurl.com/api/producto/get");
+            productoModel.LstProductos = await ServiciosGenericos.GetAll<ClsProducto>("http://aldedier-001-site1.dtempurl.com/api/producto/get");
             LstProductos = productoModel.LstProductos;
         }
 
@@ -65,6 +65,23 @@ namespace MiPrimeraApp.ViewPages
         {
             ClsProducto clsProducto = (ClsProducto)e.SelectedItem;
             Navigation.PushAsync(new ProductoDetalle(clsProducto, "Editar Producto"));
+        }
+
+        private async void menuEliminar_Clicked(object sender, EventArgs e)
+        {
+            MenuItem oMenuItem = sender as MenuItem;
+            ClsProducto clsProducto = (ClsProducto)oMenuItem.BindingContext;
+
+            var respuesta = await ServiciosGenericos.Delete("http://aldedier-001-site1.dtempurl.com/api/producto/delete", clsProducto.IdProducto);
+
+            if (respuesta == 0)
+                await DisplayAlert("Error", "No se pudo eliminar", "Cancelar");
+            else
+            {
+                ListarProductos();
+                await DisplayAlert("Exito", "Se eliminó correctamente", "Aceptar");
+            }
+
         }
     }
 }

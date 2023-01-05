@@ -1,18 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MiPrimeraApp.ViewPages.Producto">
-
-    <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="toolbarAgregarProducto" IconImageSource="ic_Agregar.png" Clicked="toolbarAgregarProducto_Clicked"/>
-    </ContentPage.ToolbarItems>
-
-
+             Title="Producto x Categoria"
+             x:Class="MiPrimeraApp.ViewPages.ProductoCategoriaConsulta">
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar Text="{Binding NombreProducto}" x:Name="buscarProducto" 
-                           SearchButtonPressed="buscarProducto_SearchButtonPressed"/>
-            <ScrollView BindingContext="{Binding productoModel}">
+            <Label Text="Consulta producto por categoria"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Picker 
+                x:Name="pickerCategoria"
+                ItemsSource="{Binding productoCategoriaConsultaModel.LstCategorias}"
+                SelectedItem="{Binding productoCategoriaConsultaModel.nombreCategoria}"
+                SelectedIndexChanged="pickerCategoria_SelectedIndexChanged"
+                
+                />
+            <ScrollView BindingContext="{Binding productoCategoriaConsultaModel}">
                 <ListView x:Name="ListaProductos" ItemsSource="{Binding LstProductos}" ItemSelected="ListaProductos_ItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -56,7 +59,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
+            
+            
         </StackLayout>
-
     </ContentPage.Content>
 </ContentPage>

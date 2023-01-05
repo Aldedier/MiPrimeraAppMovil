@@ -30,7 +30,7 @@ namespace MiPrimeraApp.ViewPages
             Categoria obj = Categoria.GetInstance();
             List<ClsCategoria> lista = obj.categoriaModel.LstCategorias.ToList();
 
-            bool respuesta = await GenericList.Post<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/post", ClsCategoria);
+            bool respuesta = await ServiciosGenericos.Post<ClsCategoria>("http://aldedier-001-site1.dtempurl.com/api/categoria/post", ClsCategoria);
 
             if (respuesta)
             {

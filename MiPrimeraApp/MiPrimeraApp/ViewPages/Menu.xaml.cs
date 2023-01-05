@@ -21,6 +21,7 @@ namespace MiPrimeraApp.ViewPages
             LstMenu = new List<ClsMenu>();
             LstMenu.Add(new ClsMenu { Nombre = "Categoria", Icono= "ic_Categoria" });
             LstMenu.Add(new ClsMenu { Nombre = "Producto", Icono= "ic_Producto" });
+            LstMenu.Add(new ClsMenu { Nombre = "Consulta", Icono= "ic_Producto" });
             LstMenu.Add(new ClsMenu { Nombre = "Cerrar Sesión", Icono= "ic_Cerrar_Sesion" });
             BindingContext = this;
         }
@@ -34,7 +35,9 @@ namespace MiPrimeraApp.ViewPages
                 case "Categoria":
                     App.Navegacion.PushAsync(new Categoria()); break;
                 case "Producto":
-                    App.Navegacion.PushAsync(new Producto()); break;
+                    App.Navegacion.PushAsync(new Producto()); break;  
+                case "Consulta":
+                    App.Navegacion.PushAsync(new TabbedPageConsulta()); break;
                 case "Cerrar Sesión":
                     App.Current.MainPage = new MainPage(); break;
             }
